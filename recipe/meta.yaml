@@ -1,25 +1,23 @@
 {% set name = "jsonrpcclient" %}
-{% set version = "4.0.3" %}
+{% set version = "4.1.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://github.com/explodinglabs/jsonrpcclient/archive/refs/tags/{{ version }}.tar.gz
-  sha256: f2343c0f4cacb6c7fd0a824593c08dd58e9adf197d9d932fa20fdfeae68bc54e
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 353cb7431610c545a451a6da285c2c21c0e4a8040333543da26c7c07bbb3fa80
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install . -vv
-  entry_points:
-    - jsonrpc=jsonrpcclient.__main__:main
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   noarch: python
 
 requirements:
   host:
     - pip
-    - setuptools
+    - flit-core >=3.12,<5
     - python {{ python_min }}
   run:
     - python >={{ python_min }}
@@ -27,19 +25,23 @@ requirements:
 test:
   requires:
     - python {{ python_min }}
+    - pip
   imports:
     - jsonrpcclient
+  commands:
+    - pip check
 
 about:
-  home: https://github.com/bcb/jsonrpcclient
+  home: https://bensynapse.github.io/jsonrpcclient/
   license: MIT
   license_family: MIT
   license_file: LICENSE
-  summary: Send JSON-RPC requests in Python.
-  doc_url: https://jsonrpcclient.readthedocs.io/
-  dev_url: https://github.com/bcb/jsonrpcclient
+  summary: Create JSON-RPC 2.0 requests and parse responses in Python.
+  doc_url: https://bensynapse.github.io/jsonrpcclient/
+  dev_url: https://github.com/bensynapse/jsonrpcclient
 
 extra:
   recipe-maintainers:
     - bcb
     - beenje
+    - bensynapse
