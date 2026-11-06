@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: jsonrpcclient
-  version: "4.1.0"
+  version: "4.2.1"
 
 package:
   name: ${{ name|lower }}
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
-  sha256: 353cb7431610c545a451a6da285c2c21c0e4a8040333543da26c7c07bbb3fa80
+  sha256: 3a9af03722a86706a7e6f9878b5a1627a18d9b06b5b3d523a921afcde29e0b73
 
 build:
   number: 1
@@ -30,7 +30,9 @@ tests:
       imports:
         - jsonrpcclient
       pip_check: true
-      python_version: ${{ python_min }}
+      python_version:
+        - ${{ python_min }}.*
+        - 3.*
 
 about:
   license: MIT
